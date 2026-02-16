@@ -2,6 +2,7 @@ import React from 'react';
 import {
   LineChart,
   Line,
+  Area,          // ✅ Added Area import
   XAxis,
   YAxis,
   Tooltip,
@@ -19,15 +20,14 @@ export default function WTODualLineGraphFixed() {
     const complainantAdvantage = 17.3 - (0.76 * gdp);
 
     // Respondent win probability: starts at 31.6%, increases by 0.64pp per $1k GDP
-    // From regression: Intercept (0.316) + GDP_per_Capita effect (0.0000064 * GDP)
     const respondentWinProb = 31.6 + (0.64 * gdp);
 
     data.push({
-  gdp,
-  complainantAdvantage,
-  respondentWinProb,
-  defenderZone: complainantAdvantage < 0 ? complainantAdvantage : 0  // NEW LINE
-});
+      gdp,
+      complainantAdvantage,
+      respondentWinProb,
+      defenderZone: complainantAdvantage < 0 ? complainantAdvantage : 0 // ✅ Added shaded zone data
+    });
   }
 
   return (
@@ -88,16 +88,19 @@ export default function WTODualLineGraphFixed() {
                 <stop offset="95%" stopColor="#ff9999" stopOpacity={0.5}/>
               </linearGradient>
             </defs>
-            {/* Pink shaded area for defendant advantage zone */}
-<Area 
-  type="monotone" 
-  dataKey="defenderZone"
-  fill="url(#redZone)"
-  stroke="none"
-  fillOpacity={1}
-  baseLine={0}
-  isAnimationActive={false}
-/>
+            
+            {/* ✅ Pink shaded area for defendant advantage zone */}
+            <Area 
+              type="monotone" 
+              dataKey="defenderZone"
+              fill="url(#redZone)"
+              stroke="none"
+              fillOpacity={1}
+              baseLine={0}
+              isAnimationActive={false}
+              name="Defendant Advantage Zone"
+            />
+            
             {/* Blue declining complainant advantage line */}
             <Line 
               type="monotone" 
@@ -118,47 +121,22 @@ export default function WTODualLineGraphFixed() {
               name="Respondent Win Probability (%)"
             />
             
-            {/* Annotations - Left side (GDP=0) */}
-            <text x="3%" y="28%" fill="#0066CC" fontSize="13" fontWeight="bold">
-              At GDP=0:
-            </text>
-            <text x="3%" y="31%" fill="#0066CC" fontSize="12">
-              Complainant
-            </text>
-            <text x="3%" y="34%" fill="#0066CC" fontSize="12">
-              +17.3pp
-            </text>
+            {/* Annotations */}
+            <text x="3%" y="28%" fill="#0066CC" fontSize="13" fontWeight="bold">At GDP=0:</text>
+            <text x="3%" y="31%" fill="#0066CC" fontSize="12">Complainant</text>
+            <text x="3%" y="34%" fill="#0066CC" fontSize="12">+17.3pp</text>
             
-            <text x="3%" y="62%" fill="#228B22" fontSize="13" fontWeight="bold">
-              At GDP=0:
-            </text>
-            <text x="3%" y="65%" fill="#228B22" fontSize="12">
-              Respondent
-            </text>
-            <text x="3%" y="68%" fill="#228B22" fontSize="12">
-              31.6%
-            </text>
+            <text x="3%" y="62%" fill="#228B22" fontSize="13" fontWeight="bold">At GDP=0:</text>
+            <text x="3%" y="65%" fill="#228B22" fontSize="12">Respondent</text>
+            <text x="3%" y="68%" fill="#228B22" fontSize="12">31.6%</text>
             
-            {/* Annotations - Right side (GDP=$70k) */}
-            <text x="85%" y="12%" fill="#228B22" fontSize="13" fontWeight="bold">
-              At GDP=$70k:
-            </text>
-            <text x="85%" y="15%" fill="#228B22" fontSize="12">
-              Respondent
-            </text>
-            <text x="85%" y="18%" fill="#228B22" fontSize="12">
-              76.4%
-            </text>
+            <text x="85%" y="12%" fill="#228B22" fontSize="13" fontWeight="bold">At GDP=$70k:</text>
+            <text x="85%" y="15%" fill="#228B22" fontSize="12">Respondent</text>
+            <text x="85%" y="18%" fill="#228B22" fontSize="12">76.4%</text>
             
-            <text x="85%" y="85%" fill="#8B0000" fontSize="13" fontWeight="bold">
-              At GDP=$70k:
-            </text>
-            <text x="85%" y="88%" fill="#8B0000" fontSize="12">
-              Complainant
-            </text>
-            <text x="85%" y="91%" fill="#8B0000" fontSize="12">
-              -35.9pp
-            </text>
+            <text x="85%" y="85%" fill="#8B0000" fontSize="13" fontWeight="bold">At GDP=$70k:</text>
+            <text x="85%" y="88%" fill="#8B0000" fontSize="12">Complainant</text>
+            <text x="85%" y="91%" fill="#8B0000" fontSize="12">-35.9pp</text>
             
             <Tooltip 
               formatter={(value, name) => {
@@ -178,35 +156,16 @@ export default function WTODualLineGraphFixed() {
         </ResponsiveContainer>
         
         {/* Legend explanation boxes */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: '1fr 1fr', 
-          gap: '15px', 
-          marginTop: '20px' 
-        }}>
-          <div style={{
-            padding: '12px',
-            backgroundColor: '#E3F2FD',
-            borderLeft: '4px solid #0066CC',
-            borderRadius: '4px'
-          }}>
-            <p style={{ margin: 0, fontSize: '13px', fontWeight: 'bold', color: '#0066CC' }}>
-              Blue Line (Declining):
-            </p>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginTop: '20px' }}>
+          <div style={{ padding: '12px', backgroundColor: '#E3F2FD', borderLeft: '4px solid #0066CC', borderRadius: '4px' }}>
+            <p style={{ margin: 0, fontSize: '13px', fontWeight: 'bold', color: '#0066CC' }}>Blue Line (Declining):</p>
             <p style={{ margin: '5px 0 0 0', fontSize: '12px' }}>
               Complainant advantage drops from +17.3pp to -35.9pp. Each $1k GDP reduces advantage by 0.76pp.
             </p>
           </div>
           
-          <div style={{
-            padding: '12px',
-            backgroundColor: '#E8F5E9',
-            borderLeft: '4px solid #228B22',
-            borderRadius: '4px'
-          }}>
-            <p style={{ margin: 0, fontSize: '13px', fontWeight: 'bold', color: '#228B22' }}>
-              Green Line (Rising):
-            </p>
+          <div style={{ padding: '12px', backgroundColor: '#E8F5E9', borderLeft: '4px solid #228B22', borderRadius: '4px' }}>
+            <p style={{ margin: 0, fontSize: '13px', fontWeight: 'bold', color: '#228B22' }}>Green Line (Rising):</p>
             <p style={{ margin: '5px 0 0 0', fontSize: '12px' }}>
               Respondent win probability rises from 31.6% to 76.4%. Each $1k GDP adds 0.64pp.
             </p>
@@ -214,30 +173,5 @@ export default function WTODualLineGraphFixed() {
         </div>
         
         {/* Key insight box */}
-        <div style={{
-          marginTop: '15px',
-          padding: '15px',
-          backgroundColor: '#FFF3E0',
-          border: '2px solid #FF9800',
-          borderRadius: '4px'
-        }}>
-          <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#E65100' }}>
-            ⚠️ H3 Contradiction - The "Scissors Effect":
-          </p>
-          <p style={{ margin: '5px 0 0 0', fontSize: '13px' }}>
-            As GDP increases, complainant advantage DECLINES while respondent win probability RISES. 
-            The two lines create a "scissors" pattern, demonstrating that economic power is a defensive 
-            asset, not an offensive one. Wealth helps you defend your policies far more than it helps 
-            you challenge others' policies—contradicting structural power theory.
-          </p>
-        </div>
-        
-        {/* Data validation note */}
-        <div style={{ marginTop: '15px', fontSize: '11px', color: '#666', fontStyle: 'italic' }}>
-          Note: Based on OLS regression results with cluster-robust SEs. Complainant advantage = 17.3 - 0.76×GDP. 
-          Respondent win probability = 31.6 + 0.64×GDP. Sample: 1,582 WTO cases (1995-2020), 62 countries.
-        </div>
-      </div>
-    </div>
-  );
-}
+        <div style={{ marginTop: '15px', padding: '15px', backgroundColor: '#FFF3E0', border: '2px solid #FF9800', borderRadius: '4px' }}>
+          <p
