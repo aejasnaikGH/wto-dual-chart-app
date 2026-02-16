@@ -12,7 +12,7 @@ import {
   Legend
 } from 'recharts';
 
-export default function WTOLitigationGraph() {
+export default function WTODualLineGraphFixed() {
   const data = [];
   for (let gdp = 0; gdp <= 70; gdp += 2) {
     // Complainant advantage: starts at +17.3pp, declines by 0.76pp per $1k GDP
