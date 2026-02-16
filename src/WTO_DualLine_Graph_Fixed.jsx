@@ -23,10 +23,11 @@ export default function WTODualLineGraphFixed() {
     const respondentWinProb = 31.6 + (0.64 * gdp);
 
     data.push({
-      gdp,
-      complainantAdvantage,
-      respondentWinProb
-    });
+  gdp,
+  complainantAdvantage,
+  respondentWinProb,
+  defenderZone: complainantAdvantage < 0 ? complainantAdvantage : 0  // NEW LINE
+});
   }
 
   return (
@@ -87,7 +88,16 @@ export default function WTODualLineGraphFixed() {
                 <stop offset="95%" stopColor="#ff9999" stopOpacity={0.5}/>
               </linearGradient>
             </defs>
-            
+            {/* Pink shaded area for defendant advantage zone */}
+<Area 
+  type="monotone" 
+  dataKey="defenderZone"
+  fill="url(#redZone)"
+  stroke="none"
+  fillOpacity={1}
+  baseLine={0}
+  isAnimationActive={false}
+/>
             {/* Blue declining complainant advantage line */}
             <Line 
               type="monotone" 
