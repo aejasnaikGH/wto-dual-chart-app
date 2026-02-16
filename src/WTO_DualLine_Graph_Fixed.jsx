@@ -173,5 +173,14 @@ export default function WTODualLineGraphFixed() {
         </div>
         
         {/* Key insight box */}
-        <div style={{ marginTop: '15px', padding: '15px', backgroundColor: '#FFF3E0', border: '2px solid #FF9800', borderRadius: '4px' }}>
-          <p
+<div style={{ marginTop: '15px', padding: '15px', backgroundColor: '#FFF3E0', border: '2px solid #FF9800', borderRadius: '4px' }}>
+  <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#E65100' }}>
+    ⚠️ H3 Contradiction - The "Scissors Effect":
+  </p>
+  <p style={{ margin: '5px 0 0 0', fontSize: '13px' }}>
+    As GDP increases, complainant advantage DECLINES while respondent win probability RISES.
+    The two lines create a "scissors" pattern, demonstrating that economic power is a defensive
+    asset, not an offensive one. Wealth helps you defend your policies far more than it helps
+    you challenge others' policies—contradicting structural power theory.
+  </p>
+</div>
