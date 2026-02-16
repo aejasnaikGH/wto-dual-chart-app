@@ -172,15 +172,31 @@ export default function WTODualLineGraphFixed() {
           </div>
         </div>
         
-       {/* Key insight box */}
-<div style={{ marginTop: '15px', padding: '15px', backgroundColor: '#FFF3E0', border: '2px solid #FF9800', borderRadius: '4px' }}>
-  <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#E65100' }}>
-    ⚠️ H3 Contradiction - The "Scissors Effect":
-  </p>
-  <p style={{ margin: '5px 0 0 0', fontSize: '13px' }}>
-    As GDP increases, complainant advantage DECLINES while respondent win probability RISES.
-    The two lines create a "scissors" pattern, demonstrating that economic power is a defensive
-    asset, not an offensive one. Wealth helps you defend your policies far more than it helps
-    you challenge others' policies—contradicting structural power theory.
-  </p>
-</div>
+      {/* Key insight box */}
+        <div style={{
+          marginTop: '15px',
+          padding: '15px',
+          backgroundColor: '#FFF3E0',
+          border: '2px solid #FF9800',
+          borderRadius: '4px'
+        }}>
+          <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#E65100' }}>
+            ⚠️ H3 Contradiction - The "Scissors Effect":
+          </p>
+          <p style={{ margin: '5px 0 0 0', fontSize: '13px' }}>
+            As GDP increases, complainant advantage DECLINES while respondent win probability RISES. 
+            The two lines create a "scissors" pattern, demonstrating that economic power is a defensive 
+            asset, not an offensive one. Wealth helps you defend your policies far more than it helps 
+            you challenge others' policies—contradicting structural power theory.
+          </p>
+        </div>
+        
+        {/* Data validation note */}
+        <div style={{ marginTop: '15px', fontSize: '11px', color: '#666', fontStyle: 'italic' }}>
+          Note: Based on OLS regression results with cluster-robust SEs. Complainant advantage = 17.3 - 0.76×GDP. 
+          Respondent win probability = 31.6 + 0.64×GDP. Sample: 1,582 WTO cases (1995-2020), 62 countries.
+        </div>
+      </div>
+    </div>
+  );
+}
