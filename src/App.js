@@ -1,4 +1,4 @@
-import WTOChart from './WTO_DualLine_Graph_Fixed';
+import WTOChart from './WTO_FIXED_NUMERIC_AXIS';
 
 function App() {
   return (
