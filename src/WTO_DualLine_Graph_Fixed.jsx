@@ -172,7 +172,7 @@ export default function WTODualLineGraphFixed() {
           </div>
         </div>
         
-        {/* Key insight box */}
+       {/* Key insight box */}
 <div style={{ marginTop: '15px', padding: '15px', backgroundColor: '#FFF3E0', border: '2px solid #FF9800', borderRadius: '4px' }}>
   <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#E65100' }}>
     ⚠️ H3 Contradiction - The "Scissors Effect":
